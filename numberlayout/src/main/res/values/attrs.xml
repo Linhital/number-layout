@@ -8,6 +8,7 @@
         <attr name="cue_backgrounColor" format="color" />
         <attr name="cue_textColor" format="color" />
         <attr name="circle_line" format="boolean" />
+        <attr name="text" format="string" />
         <attr name="direction" format="enum">
             <enum name="left_top" value="3" />
             <enum name="right_top" value="6" />

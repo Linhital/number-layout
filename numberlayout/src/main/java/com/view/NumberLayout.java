@@ -145,7 +145,6 @@ public class NumberLayout extends FrameLayout {
             canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2, config.getLinePaint());
             canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - 3, config.getBackPaint());
             canvas.drawText(config.text, config.getRectF().centerX(), config.getCenterY(), config.getTextPaint());
-
         }
     }
 }

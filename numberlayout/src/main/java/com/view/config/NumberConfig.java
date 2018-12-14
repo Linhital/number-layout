@@ -37,6 +37,7 @@ public class NumberConfig {
         textColor = a.getColor(R.styleable.NumberLayout_cue_textColor, Color.GRAY);
         backGroundColor = a.getColor(R.styleable.NumberLayout_cue_backgrounColor, Color.WHITE);
         isLine = a.getBoolean(R.styleable.NumberLayout_circle_line, false);
+        text = a.getString(R.styleable.NumberLayout_text);
         a.recycle();
         if (direction == 15)
             scaleCenter = 0;
