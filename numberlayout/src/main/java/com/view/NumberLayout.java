@@ -1,0 +1,153 @@
+package com.view;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.util.AttributeSet;
+import android.view.View;
+import android.widget.FrameLayout;
+
+import com.view.config.NumberConfig;
+
+public class NumberLayout extends FrameLayout {
+    private NumberConfig config = new NumberConfig();
+    private Paint paint;
+
+    public NumberLayout(Context context) {
+        this(context, null);
+    }
+
+    public NumberLayout(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public NumberLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        config.init(context, attrs);
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(Color.WHITE);
+        paint.setTextSize(40);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        if (getChildCount() == 1) {
+            CueView view = new CueView(config.mContext);
+            addView(view);
+        } else if (getChildCount() != 2) {
+            throw new RuntimeException("child's count is wrong");
+        }
+
+
+        int width = MeasureSpec.getSize(widthMeasureSpec);
+        int height = MeasureSpec.getSize(heightMeasureSpec);
+        measureChildren(widthMeasureSpec, heightMeasureSpec);
+        View view = getChildAt(0);
+        int childWidth = view.getMeasuredWidth();
+        int childHeight = view.getMeasuredHeight();
+
+        LayoutParams lp = (LayoutParams) view.getLayoutParams();
+        int offsetX = (int) (config.radius - (1 - config.scaleCenter) * childWidth / 2);
+        int offsetY = (int) (config.radius - (1 - config.scaleCenter) * childHeight / 2);
+        if (offsetX < 0)
+            offsetX = 0;
+        if (offsetY < 0)
+            offsetY = 0;
+
+        if (!config.singlehorizontalSide) {
+            offsetX = 2 * offsetX;
+        }
+
+        if (!config.singleVerticalSide) {
+            offsetY = 2 * offsetY;
+        }
+
+        config.setOffsetX(offsetX);
+        config.setOffsetY(offsetY);
+
+        width = childWidth + lp.leftMargin + lp.rightMargin + getPaddingLeft() + getPaddingRight() + offsetX;
+        height = childHeight + lp.topMargin + lp.bottomMargin + getPaddingTop() + getPaddingBottom() + offsetY;
+        setMeasuredDimension(width, height);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        View view = getChildAt(0);
+        LayoutParams lp = (LayoutParams) view.getLayoutParams();
+        int left = getPaddingLeft() + lp.leftMargin;
+        int top = getPaddingTop() + lp.topMargin;
+        int right = r - getPaddingRight() - lp.rightMargin;
+        int bottom = b - getPaddingBottom() - lp.bottomMargin;
+
+        if (config.singlehorizontalSide) {
+            if ((config.direction & 1) == 1)
+                left += config.getOffsetX();
+            if ((config.direction & 4) == 4)
+                right = right - config.getOffsetX();
+        } else {
+            left += config.getOffsetX();
+            right = right - config.getOffsetX();
+        }
+        if (config.singleVerticalSide) {
+            if ((config.direction & 2) == 2)
+                top += config.getOffsetY();
+            if ((config.direction & 8) == 8)
+                bottom = bottom - config.getOffsetY();
+        } else {
+            top += config.getOffsetY();
+            bottom = bottom - config.getOffsetY();
+        }
+        view.layout(left, top, right, bottom);
+
+        int centerX = (left + right) / 2;
+        int centerY = (top + bottom) / 2;
+        int direction = config.direction;
+        if (config.direction == 15)
+            direction = 0;
+        if ((direction & 1) == 1)
+            centerX = (int) (centerX - (centerX - left) * config.scaleCenter);
+
+        if ((direction & 2) == 2)
+            centerY = (int) (centerY - (centerY - top) * config.scaleCenter);
+
+        if ((direction & 4) == 4)
+            centerX = (int) (centerX + (right - centerX) * config.scaleCenter);
+
+        if ((direction & 8) == 8)
+            centerY = (int) (centerY + (bottom - centerY) * config.scaleCenter);
+
+
+        View cue = getChildAt(1);
+        cue.layout((int) (centerX - config.radius), (int) (centerY - config.radius), (int) (centerX + config.radius), (int) (centerY + config.radius));
+    }
+
+    private class CueView extends View {
+
+        public CueView(Context context) {
+            this(context, null);
+        }
+
+        public CueView(Context context, AttributeSet attrs) {
+            this(context, attrs, 0);
+        }
+
+        public CueView(Context context, AttributeSet attrs, int defStyleAttr) {
+            super(context, attrs, defStyleAttr);
+        }
+
+        @Override
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+            setMeasuredDimension((int) (config.radius * 2), (int) (config.radius * 2));
+            config.initTextRect(0, 0, (int) (config.radius * 2), (int) (config.radius * 2));
+        }
+
+        @Override
+        protected void onDraw(Canvas canvas) {
+            canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2, config.getBackPaint());
+
+            canvas.drawText("10", config.getRectF().centerX(), config.getCenterY(), config.getTextPaint());
+
+        }
+    }
+}

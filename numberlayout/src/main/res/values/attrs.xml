@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NumberLayout">
+        <attr name="single_vertical_side" format="boolean" />
+        <attr name="single_horizontal_side" format="boolean" />
+        <attr name="scale_center" format="float" />
+        <attr name="cue_radius" format="dimension" />
+        <attr name="cue_backgrounColor" format="color" />
+        <attr name="cue_textColor" format="color" />
+        <attr name="direction" format="enum">
+            <enum name="left_top" value="3" />
+            <enum name="right_top" value="6" />
+            <enum name="left_bottom" value="9" />
+            <enum name="right_bottom" value="12" />
+            <enum name="center" value="15" />
+        </attr>
+
+    </declare-styleable>
+</resources>
