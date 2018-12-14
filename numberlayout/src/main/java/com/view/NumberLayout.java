@@ -2,8 +2,6 @@ package com.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -12,7 +10,6 @@ import com.view.config.NumberConfig;
 
 public class NumberLayout extends FrameLayout {
     private NumberConfig config = new NumberConfig();
-    private Paint paint;
 
     public NumberLayout(Context context) {
         this(context, null);
@@ -25,9 +22,10 @@ public class NumberLayout extends FrameLayout {
     public NumberLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         config.init(context, attrs);
-        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.WHITE);
-        paint.setTextSize(40);
+    }
+
+    public void setText(String text) {
+        config.text = text;
     }
 
     @Override
@@ -144,9 +142,9 @@ public class NumberLayout extends FrameLayout {
 
         @Override
         protected void onDraw(Canvas canvas) {
-            canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2, config.getBackPaint());
-
-            canvas.drawText("10", config.getRectF().centerX(), config.getCenterY(), config.getTextPaint());
+            canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2, config.getLinePaint());
+            canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - 3, config.getBackPaint());
+            canvas.drawText(config.text, config.getRectF().centerX(), config.getCenterY(), config.getTextPaint());
 
         }
     }

@@ -23,6 +23,8 @@ public class NumberConfig {
     private RectF rectF;
     private Paint textPaint;
     private Paint backPaint;
+    private boolean isLine;
+    public String text;
 
     public void init(Context context, AttributeSet attrs) {
         mContext = context;
@@ -34,6 +36,7 @@ public class NumberConfig {
         radius = a.getDimension(R.styleable.NumberLayout_cue_radius, 20);
         textColor = a.getColor(R.styleable.NumberLayout_cue_textColor, Color.GRAY);
         backGroundColor = a.getColor(R.styleable.NumberLayout_cue_backgrounColor, Color.WHITE);
+        isLine = a.getBoolean(R.styleable.NumberLayout_circle_line, false);
         a.recycle();
         if (direction == 15)
             scaleCenter = 0;
@@ -108,5 +111,12 @@ public class NumberConfig {
 
     public RectF getRectF() {
         return rectF;
+    }
+
+    public Paint getLinePaint() {
+        if (isLine) {
+            return getTextPaint();
+        } else
+            return getBackPaint();
     }
 }
