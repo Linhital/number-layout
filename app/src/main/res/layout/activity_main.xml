@@ -7,20 +7,68 @@
     tools:context=".MainActivity">
 
     <com.view.NumberLayout
-        android:id="@+id/h"
-        android:layout_width="wrap_content"
+        android:id="@+id/a"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         app:cue_radius="30dp"
         app:direction="left_bottom"
-        app:is_visible="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:scale_center="1"
         app:text="2">
 
         <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@color/colorAccent" />
     </com.view.NumberLayout>
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/a"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/a"
+        app:layout_constraintTop_toTopOf="@+id/a" />
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/a"
+        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/a" />
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/a"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/a" />
+
 
 </android.support.constraint.ConstraintLayout>

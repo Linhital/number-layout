@@ -3,6 +3,7 @@ package com.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -32,8 +33,6 @@ public class NumberLayout extends FrameLayout {
         } else if (getChildCount() != 2 && config.isVisible) {
             throw new RuntimeException("child's count is wrong");
         }
-
-
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
         measureChildren(widthMeasureSpec, heightMeasureSpec);
@@ -64,6 +63,7 @@ public class NumberLayout extends FrameLayout {
 
         width = childWidth + lp.leftMargin + lp.rightMargin + getPaddingLeft() + getPaddingRight() + offsetX;
         height = childHeight + lp.topMargin + lp.bottomMargin + getPaddingTop() + getPaddingBottom() + offsetY;
+        Log.i("life", "AT_MOST");
         setMeasuredDimension(width, height);
     }
 
@@ -73,9 +73,8 @@ public class NumberLayout extends FrameLayout {
         LayoutParams lp = (LayoutParams) view.getLayoutParams();
         int left = getPaddingLeft() + lp.leftMargin;
         int top = getPaddingTop() + lp.topMargin;
-        int right = r - getPaddingRight() - lp.rightMargin;
-        int bottom = b - getPaddingBottom() - lp.bottomMargin;
-
+        int right = r - l - getPaddingRight() - lp.rightMargin;
+        int bottom = b - t - getPaddingBottom() - lp.bottomMargin;
         if (config.singleHorizontalSide) {
             if ((config.direction & 1) == 1)
                 left += config.getOffsetX();
@@ -96,6 +95,7 @@ public class NumberLayout extends FrameLayout {
         }
         view.layout(left, top, right, bottom);
 
+
         int centerX = (left + right) / 2;
         int centerY = (top + bottom) / 2;
         int direction = config.direction;
@@ -115,10 +115,11 @@ public class NumberLayout extends FrameLayout {
 
 
         View cue = getChildAt(1);
-        if (config.isVisible)
+        if (config.isVisible) {
             cue.layout((int) (centerX - config.radius), (int) (centerY - config.radius), (int) (centerX + config.radius), (int) (centerY + config.radius));
-        else
+        } else {
             removeView(cue);
+        }
     }
 
     private class CueView extends View {
