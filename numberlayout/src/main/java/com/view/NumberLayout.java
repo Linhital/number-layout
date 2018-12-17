@@ -2,6 +2,7 @@ package com.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -154,14 +155,14 @@ public class NumberLayout extends FrameLayout {
 
         @Override
         protected void onDraw(Canvas canvas) {
-//            if (config.isVisible) {
-            canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2, config.getLinePaint());
-            canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - 3, config.getBackPaint());
-            canvas.drawText(config.text, config.getRectF().centerX(), config.getCenterY(), config.getTextPaint());
-//            } else {
-//                config.setBackGroundColor(Color.TRANSPARENT);
-//                canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - 3, config.getBackPaint());
-//            }
+            if (config.isVisible) {
+                canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2, config.getLinePaint());
+                canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - 3, config.getBackPaint());
+                canvas.drawText(config.text, config.getRectF().centerX(), config.getCenterY(), config.getTextPaint());
+            } else {
+                config.setBackGroundColor(Color.TRANSPARENT);
+                canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - 3, config.getBackPaint());
+            }
         }
     }
 
