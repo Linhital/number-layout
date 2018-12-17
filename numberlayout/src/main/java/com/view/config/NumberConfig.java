@@ -50,6 +50,8 @@ public class NumberConfig {
         a.recycle();
         if (direction == 15)
             scaleCenter = 0;
+        if (text == null)
+            text = "";
 
     }
 
