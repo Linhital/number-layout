@@ -7,12 +7,13 @@
     tools:context=".MainActivity">
 
     <com.view.NumberLayout
+        android:id="@+id/h"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         app:cue_radius="30dp"
         app:direction="left_bottom"
-        app:scale_center="0.7"
+        app:scale_center="1"
         app:text="2">
 
         <ImageView

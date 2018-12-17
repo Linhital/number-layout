@@ -8,29 +8,35 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 
 import com.view.numberlayout.R;
+import com.view.utils.BigDecUtil;
 
 public class NumberConfig {
     public Context mContext;
-    public boolean singleVerticalSide;
-    public boolean singlehorizontalSide;
-    public float scaleCenter;
-    public int direction;
-    public float radius;
-    public int textColor;
-    public int backGroundColor;
-    private int offsetX;
-    private int offsetY;
-    private RectF rectF;
-    private Paint textPaint;
-    private Paint backPaint;
-    private boolean isLine;
-    public String text;
+    public boolean singleVerticalSide;//如果垂直方向超出空间，是否上下两边都需要超出空间
+    public boolean singleHorizontalSide;//如果水平方向超出空间，是否左右两边都需要超出空间
+    public float scaleCenter;//提示view原点在连线上的的位置
+    public int direction;//提示view所在的象限
+    public float radius;//提示view的半径
+    public int textColor;//提示view中的字体颜色
+    public int backGroundColor;//提示view的背景颜色
+    private int offsetX;//提示view与子view水平方向的偏移量
+    private int offsetY;//提示view与子view垂直方向的偏移量
+    private boolean isLine;//是否为提示添加圆圈
+    public String text;//提示字
+    public float clipVertical;
+    public float clipHorizontal;
+    public boolean isVisible;
+
+    private RectF rectF;//字体居中所需的辅助长方形
+    private Paint textPaint;//提示view中的字体画笔
+    private Paint backPaint;//提示view中的背景画笔
+    BigDecUtil util = new BigDecUtil();
 
     public void init(Context context, AttributeSet attrs) {
         mContext = context;
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.NumberLayout);
         singleVerticalSide = a.getBoolean(R.styleable.NumberLayout_single_vertical_side, false);
-        singlehorizontalSide = a.getBoolean(R.styleable.NumberLayout_single_horizontal_side, false);
+        singleHorizontalSide = a.getBoolean(R.styleable.NumberLayout_single_horizontal_side, false);
         scaleCenter = a.getFloat(R.styleable.NumberLayout_scale_center, 1);
         direction = a.getInt(R.styleable.NumberLayout_direction, 15);
         radius = a.getDimension(R.styleable.NumberLayout_cue_radius, 20);
@@ -38,6 +44,9 @@ public class NumberConfig {
         backGroundColor = a.getColor(R.styleable.NumberLayout_cue_backgrounColor, Color.WHITE);
         isLine = a.getBoolean(R.styleable.NumberLayout_circle_line, false);
         text = a.getString(R.styleable.NumberLayout_text);
+        clipVertical = a.getFloat(R.styleable.NumberLayout_clip_vertical, 1);
+        clipHorizontal = a.getFloat(R.styleable.NumberLayout_clip_horizontal, 1);
+        isVisible = a.getBoolean(R.styleable.NumberLayout_is_visible, true);
         a.recycle();
         if (direction == 15)
             scaleCenter = 0;
@@ -51,7 +60,7 @@ public class NumberConfig {
     }
 
     public int getOffsetX() {
-        if (!singlehorizontalSide) {
+        if (!singleHorizontalSide) {
             return offsetX / 2;
         }
         return offsetX;
@@ -119,5 +128,57 @@ public class NumberConfig {
             return getTextPaint();
         } else
             return getBackPaint();
+    }
+
+    public float getVerticalMultiple() {
+        return (float) util.getMultiplyValue(clipVertical, scaleCenter);
+    }
+
+    public float getHorizontalMultiple() {
+        return (float) util.getMultiplyValue(clipHorizontal, scaleCenter);
+    }
+
+    public void setSingleVerticalSide(boolean singleVerticalSide) {
+        this.singleVerticalSide = singleVerticalSide;
+    }
+
+    public void setSingleHorizontalSide(boolean singleHorizontalSide) {
+        this.singleHorizontalSide = singleHorizontalSide;
+    }
+
+    public void setScaleCenter(float scaleCenter) {
+        this.scaleCenter = scaleCenter;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+
+    public void setRadius(float radius) {
+        this.radius = radius;
+    }
+
+    public void setTextColor(int textColor) {
+        this.textColor = textColor;
+    }
+
+    public void setBackGroundColor(int backGroundColor) {
+        this.backGroundColor = backGroundColor;
+    }
+
+    public void setLine(boolean line) {
+        isLine = line;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setClipVertical(float clipVertical) {
+        this.clipVertical = clipVertical;
+    }
+
+    public void setClipHorizontal(float clipHorizontal) {
+        this.clipHorizontal = clipHorizontal;
     }
 }

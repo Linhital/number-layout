@@ -4,10 +4,13 @@
         <attr name="single_vertical_side" format="boolean" />
         <attr name="single_horizontal_side" format="boolean" />
         <attr name="scale_center" format="float" />
+        <attr name="clip_vertical" format="float" />
+        <attr name="clip_horizontal" format="float" />
         <attr name="cue_radius" format="dimension" />
         <attr name="cue_backgrounColor" format="color" />
         <attr name="cue_textColor" format="color" />
         <attr name="circle_line" format="boolean" />
+        <attr name="is_visible" format="boolean" />
         <attr name="text" format="string" />
         <attr name="direction" format="enum">
             <enum name="left_top" value="3" />

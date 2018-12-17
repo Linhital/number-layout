@@ -2,6 +2,7 @@ package com.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -24,10 +25,6 @@ public class NumberLayout extends FrameLayout {
         config.init(context, attrs);
     }
 
-    public void setText(String text) {
-        config.text = text;
-    }
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if (getChildCount() == 1) {
@@ -46,14 +43,16 @@ public class NumberLayout extends FrameLayout {
         int childHeight = view.getMeasuredHeight();
 
         LayoutParams lp = (LayoutParams) view.getLayoutParams();
-        int offsetX = (int) (config.radius - (1 - config.scaleCenter) * childWidth / 2);
-        int offsetY = (int) (config.radius - (1 - config.scaleCenter) * childHeight / 2);
+        // 当小红点超出子View的宽高时，计算超出的偏移量
+        int offsetX = (int) (config.radius - (1 - config.getVerticalMultiple()) * childWidth / 2);
+        int offsetY = (int) (config.radius - (1 - config.getHorizontalMultiple()) * childHeight / 2);
         if (offsetX < 0)
             offsetX = 0;
         if (offsetY < 0)
             offsetY = 0;
 
-        if (!config.singlehorizontalSide) {
+        //当提示的小点
+        if (!config.singleHorizontalSide) {
             offsetX = 2 * offsetX;
         }
 
@@ -78,7 +77,7 @@ public class NumberLayout extends FrameLayout {
         int right = r - getPaddingRight() - lp.rightMargin;
         int bottom = b - getPaddingBottom() - lp.bottomMargin;
 
-        if (config.singlehorizontalSide) {
+        if (config.singleHorizontalSide) {
             if ((config.direction & 1) == 1)
                 left += config.getOffsetX();
             if ((config.direction & 4) == 4)
@@ -104,16 +103,16 @@ public class NumberLayout extends FrameLayout {
         if (config.direction == 15)
             direction = 0;
         if ((direction & 1) == 1)
-            centerX = (int) (centerX - (centerX - left) * config.scaleCenter);
+            centerX = (int) (centerX - (centerX - left) * config.getVerticalMultiple());
 
         if ((direction & 2) == 2)
-            centerY = (int) (centerY - (centerY - top) * config.scaleCenter);
+            centerY = (int) (centerY - (centerY - top) * config.getHorizontalMultiple());
 
         if ((direction & 4) == 4)
-            centerX = (int) (centerX + (right - centerX) * config.scaleCenter);
+            centerX = (int) (centerX + (right - centerX) * config.getVerticalMultiple());
 
         if ((direction & 8) == 8)
-            centerY = (int) (centerY + (bottom - centerY) * config.scaleCenter);
+            centerY = (int) (centerY + (bottom - centerY) * config.getHorizontalMultiple());
 
 
         View cue = getChildAt(1);
@@ -142,9 +141,74 @@ public class NumberLayout extends FrameLayout {
 
         @Override
         protected void onDraw(Canvas canvas) {
-            canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2, config.getLinePaint());
-            canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - 3, config.getBackPaint());
-            canvas.drawText(config.text, config.getRectF().centerX(), config.getCenterY(), config.getTextPaint());
+            if (config.isVisible) {
+                canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2, config.getLinePaint());
+                canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - 3, config.getBackPaint());
+                canvas.drawText(config.text, config.getRectF().centerX(), config.getCenterY(), config.getTextPaint());
+            } else {
+                config.setBackGroundColor(Color.TRANSPARENT);
+                canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - 3, config.getBackPaint());
+            }
         }
+    }
+
+
+    public void setSingleVerticalSide(boolean singleVerticalSide) {
+        config.singleVerticalSide = singleVerticalSide;
+        requestLayout();
+    }
+
+    public void setSingleHorizontalSide(boolean singleHorizontalSide) {
+        config.singleHorizontalSide = singleHorizontalSide;
+        requestLayout();
+    }
+
+    public void setScaleCenter(float scaleCenter) {
+        config.scaleCenter = scaleCenter;
+        requestLayout();
+    }
+
+    public void setDirection(int direction) {
+        config.direction = direction;
+        requestLayout();
+    }
+
+    public void setRadius(float radius) {
+        config.radius = radius;
+        requestLayout();
+    }
+
+    public void setTextColor(int textColor) {
+        config.textColor = textColor;
+        invalidate();
+    }
+
+    public void setBackGroundColor(int backGroundColor) {
+        config.backGroundColor = backGroundColor;
+        invalidate();
+    }
+
+    public void setLine(boolean line) {
+        config.setLine(line);
+        invalidate();
+    }
+
+    public void setText(String text) {
+        config.text = text;
+        invalidate();
+    }
+
+    public void setClipVertical(float clipVertical) {
+        config.clipVertical = clipVertical;
+        requestLayout();
+    }
+
+    public void setClipHorizontal(float clipHorizontal) {
+        config.clipHorizontal = clipHorizontal;
+        requestLayout();
+    }
+
+    public void setVisible(boolean visible) {
+        config.isVisible = visible;
     }
 }
