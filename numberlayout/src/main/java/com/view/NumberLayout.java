@@ -27,16 +27,20 @@ public class NumberLayout extends FrameLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (getChildCount() == 1 && config.isVisible) {
             CueView view = new CueView(config.mContext);
             addView(view);
         } else if (getChildCount() != 2 && config.isVisible) {
             throw new RuntimeException("child's count is wrong");
         }
+        int w = getMeasuredWidth();
+        int h = getMeasuredHeight();
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
         int modeW = MeasureSpec.getMode(widthMeasureSpec);
         int modeH = MeasureSpec.getMode(heightMeasureSpec);
+
         switch (modeW) {
             case MeasureSpec.AT_MOST:
                 measureChildren(widthMeasureSpec, heightMeasureSpec);
