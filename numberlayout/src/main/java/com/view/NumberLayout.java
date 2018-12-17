@@ -3,7 +3,6 @@ package com.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -35,35 +34,46 @@ public class NumberLayout extends FrameLayout {
         }
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
-        measureChildren(widthMeasureSpec, heightMeasureSpec);
-        View view = getChildAt(0);
-        int childWidth = view.getMeasuredWidth();
-        int childHeight = view.getMeasuredHeight();
+        int modeW = MeasureSpec.getMode(widthMeasureSpec);
+        int modeH = MeasureSpec.getMode(heightMeasureSpec);
+        switch (modeW) {
+            case MeasureSpec.AT_MOST:
+                measureChildren(widthMeasureSpec, heightMeasureSpec);
+                View view = getChildAt(0);
+                int childWidth = view.getMeasuredWidth();
+                int childHeight = view.getMeasuredHeight();
 
-        LayoutParams lp = (LayoutParams) view.getLayoutParams();
-        // 当小红点超出子View的宽高时，计算超出的偏移量
-        int offsetX = (int) (config.radius - (1 - config.getVerticalMultiple()) * childWidth / 2);
-        int offsetY = (int) (config.radius - (1 - config.getHorizontalMultiple()) * childHeight / 2);
-        if (offsetX < 0)
-            offsetX = 0;
-        if (offsetY < 0)
-            offsetY = 0;
+                LayoutParams lp = (LayoutParams) view.getLayoutParams();
+                // 当小红点超出子View的宽高时，计算超出的偏移量
+                int offsetX = (int) (config.radius - (1 - config.getVerticalMultiple()) * childWidth / 2);
+                int offsetY = (int) (config.radius - (1 - config.getHorizontalMultiple()) * childHeight / 2);
+                if (offsetX < 0)
+                    offsetX = 0;
+                if (offsetY < 0)
+                    offsetY = 0;
 
-        //当提示的小点
-        if (!config.singleHorizontalSide) {
-            offsetX = 2 * offsetX;
+                //当提示的小点
+                if (!config.singleHorizontalSide) {
+                    offsetX = 2 * offsetX;
+                }
+
+                if (!config.singleVerticalSide) {
+                    offsetY = 2 * offsetY;
+                }
+
+                config.setOffsetX(offsetX);
+                config.setOffsetY(offsetY);
+
+                width = childWidth + lp.leftMargin + lp.rightMargin + getPaddingLeft() + getPaddingRight() + offsetX;
+                height = childHeight + lp.topMargin + lp.bottomMargin + getPaddingTop() + getPaddingBottom() + offsetY;
+                break;
+            case MeasureSpec.EXACTLY:
+                if (width > height)
+                    width = height;
+                else
+                    height = width;
+                break;
         }
-
-        if (!config.singleVerticalSide) {
-            offsetY = 2 * offsetY;
-        }
-
-        config.setOffsetX(offsetX);
-        config.setOffsetY(offsetY);
-
-        width = childWidth + lp.leftMargin + lp.rightMargin + getPaddingLeft() + getPaddingRight() + offsetX;
-        height = childHeight + lp.topMargin + lp.bottomMargin + getPaddingTop() + getPaddingBottom() + offsetY;
-        Log.i("life", "AT_MOST");
         setMeasuredDimension(width, height);
     }
 
