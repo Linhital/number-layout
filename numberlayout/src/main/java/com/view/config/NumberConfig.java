@@ -22,7 +22,7 @@ public class NumberConfig {
     private int offsetX;//提示view与子view水平方向的偏移量
     private int offsetY;//提示view与子view垂直方向的偏移量
     private boolean isLine;//是否为提示添加圆圈
-    public String text;//提示字
+    public String text = "";//提示字
     public float clipVertical;
     public float clipHorizontal;
     public boolean isVisible;
