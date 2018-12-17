@@ -13,6 +13,7 @@
         android:background="@color/colorPrimary"
         app:cue_radius="30dp"
         app:direction="left_bottom"
+        app:is_visible="false"
         app:scale_center="1"
         app:text="2">
 

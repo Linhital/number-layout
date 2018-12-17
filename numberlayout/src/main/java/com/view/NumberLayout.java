@@ -2,7 +2,6 @@ package com.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -27,10 +26,10 @@ public class NumberLayout extends FrameLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (getChildCount() == 1) {
+        if (getChildCount() == 1 && config.isVisible) {
             CueView view = new CueView(config.mContext);
             addView(view);
-        } else if (getChildCount() != 2) {
+        } else if (getChildCount() != 2 && config.isVisible) {
             throw new RuntimeException("child's count is wrong");
         }
 
@@ -116,7 +115,10 @@ public class NumberLayout extends FrameLayout {
 
 
         View cue = getChildAt(1);
-        cue.layout((int) (centerX - config.radius), (int) (centerY - config.radius), (int) (centerX + config.radius), (int) (centerY + config.radius));
+        if (config.isVisible)
+            cue.layout((int) (centerX - config.radius), (int) (centerY - config.radius), (int) (centerX + config.radius), (int) (centerY + config.radius));
+        else
+            removeView(cue);
     }
 
     private class CueView extends View {
@@ -141,14 +143,14 @@ public class NumberLayout extends FrameLayout {
 
         @Override
         protected void onDraw(Canvas canvas) {
-            if (config.isVisible) {
-                canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2, config.getLinePaint());
-                canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - 3, config.getBackPaint());
-                canvas.drawText(config.text, config.getRectF().centerX(), config.getCenterY(), config.getTextPaint());
-            } else {
-                config.setBackGroundColor(Color.TRANSPARENT);
-                canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - 3, config.getBackPaint());
-            }
+//            if (config.isVisible) {
+            canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2, config.getLinePaint());
+            canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - 3, config.getBackPaint());
+            canvas.drawText(config.text, config.getRectF().centerX(), config.getCenterY(), config.getTextPaint());
+//            } else {
+//                config.setBackGroundColor(Color.TRANSPARENT);
+//                canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - 3, config.getBackPaint());
+//            }
         }
     }
 
@@ -210,5 +212,8 @@ public class NumberLayout extends FrameLayout {
 
     public void setVisible(boolean visible) {
         config.isVisible = visible;
+        requestLayout();
+//        if (visible)
+//            invalidate();
     }
 }
