@@ -208,6 +208,8 @@ public class NumberLayout extends FrameLayout {
     }
 
     public void setText(String text) {
+        if (text == null)
+            throw new NullPointerException();
         config.text = text;
         invalidate();
     }
