@@ -107,11 +107,9 @@ public class NumberConfig {
 
     public Paint getBackPaint() {
         if (backPaint == null) {
-            backPaint = new Paint();
+            backPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             backPaint.setColor(Color.GRAY);
             backPaint.setStyle(Paint.Style.FILL);
-            //设置抗锯齿
-            backPaint.setAntiAlias(true);
         }
         backPaint.setColor(backGroundColor);
         return backPaint;

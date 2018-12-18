@@ -11,6 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
+        android:padding="10dp"
         app:circle_line="true"
         app:cue_radius="20dp"
         app:cue_textColor="@color/colorBlue"
