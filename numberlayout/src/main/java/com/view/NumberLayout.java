@@ -160,8 +160,8 @@ public class NumberLayout extends FrameLayout {
         @Override
         protected void onDraw(Canvas canvas) {
             if (config.isVisible) {
-                canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2, config.getLinePaint());
-                canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - 3, config.getBackPaint());
+                canvas.drawCircle(getWidth() / 2, getHeight() / 2, config.radius - 10, config.getLinePaint());
+                canvas.drawCircle(getWidth() / 2, getHeight() / 2, config.radius - 12, config.getBackPaint());
                 canvas.drawText(config.text, config.getRectF().centerX(), config.getCenterY(), config.getTextPaint());
             } else {
                 config.setBackGroundColor(Color.TRANSPARENT);
