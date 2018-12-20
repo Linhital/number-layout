@@ -66,7 +66,8 @@ public class NumberLayout extends FrameLayout {
                 int result = (int) getOffset(childWidth);
                 result = result + p + margin + childWidth;
                 if (result > width) {
-                    childWidth = (int) ((width - p - margin - 2 * config.radius) / config.getHorizontalMultiple());
+                    int r = (int) config.radius;
+                    childWidth = config.util.getDivideValue(width - p - margin - 2 * r, config.getHorizontalMultiple()).intValue();
                 }
                 offsetX = (int) getOffset(childWidth);
                 if (offsetX < 0)
@@ -81,10 +82,10 @@ public class NumberLayout extends FrameLayout {
         }
 
         config.width = childWidth;
-
+        int offsetY = 0;
         switch (modeH) {
             case MeasureSpec.AT_MOST:
-                int offsetY = (int) (config.radius - (1 - config.getHorizontalMultiple()) * childHeight / 2);
+                offsetY = (int) (config.radius - (1 - config.getHorizontalMultiple()) * childHeight / 2);
                 if (offsetY < 0)
                     offsetY = 0;
                 if (!config.singleVerticalSide)
@@ -94,78 +95,33 @@ public class NumberLayout extends FrameLayout {
                 height = childHeight + lp.topMargin + lp.bottomMargin + getPaddingTop() + getPaddingBottom() + offsetY;
                 break;
             case MeasureSpec.EXACTLY:
-                break;
+                int p = getPaddingTop() + getPaddingBottom();
+                int margin = lp.topMargin + lp.bottomMargin;
+                int result = (int) getOffset(childHeight);
+                result = result + p + margin + childHeight;
+                if (result > height) {
+                    int r = (int) config.radius;
+                    childHeight = config.util.getDivideValue(height - p - margin - 2 * r, config.getVerticalMultiple()).intValue();
+                }
+                offsetY = (int) getOffset(childHeight);
+                if (offsetY < 0)
+                    offsetY = 0;
 
+                //当提示的小点
+                if (!config.singleHorizontalSide) {
+                    offsetY = 2 * offsetY;
+                }
+                config.setOffsetY(offsetY);
+                break;
         }
+        config.height = childHeight;
         setMeasuredDimension(width, height);
+
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         layoutChild(l, t, r, b);
-
-//        View view = getChildAt(0);
-//        MarginLayoutParams lp = (MarginLayoutParams) view.getLayoutParams();
-//        int left = getPaddingLeft() + lp.leftMargin;
-//        int top = getPaddingTop() + lp.topMargin;
-//        int rightParent = r - l - getPaddingRight() - lp.rightMargin;
-//        int bottomParent = b - t - getPaddingBottom() - lp.bottomMargin;
-//        int right = left + view.getMeasuredWidth();
-//        int bottom = top + view.getMeasuredHeight();
-//        if (rightParent > right) {
-//            left = (rightParent - right) / 2 + left;
-//            right = (rightParent - right) / 2 + right;
-//        }
-//
-//        if (bottomParent > bottom) {
-//            top = (bottomParent - bottom) / 2 + top;
-//            bottom = (bottomParent - bottom) / 2 + top;
-//        }
-//        if (config.singleHorizontalSide) {
-//            if ((config.direction & 1) == 1)
-//                left += config.getOffsetX();
-//            if ((config.direction & 4) == 4)
-//                right = right - config.getOffsetX();
-//        } else {
-//            left += config.getOffsetX();
-//            right = right - config.getOffsetX();
-//        }
-//        if (config.singleVerticalSide) {
-//            if ((config.direction & 2) == 2)
-//                top += config.getOffsetY();
-//            if ((config.direction & 8) == 8)
-//                bottom = bottom - config.getOffsetY();
-//        } else {
-//            top += config.getOffsetY();
-//            bottom = bottom - config.getOffsetY();
-//        }
-//        view.layout(left, top, right, bottom);
-//
-//
-//        int centerX = (left + right) / 2;
-//        int centerY = (top + bottom) / 2;
-//        int direction = config.direction;
-//        if (config.direction == 15)
-//            direction = 0;
-//        if ((direction & 1) == 1)
-//            centerX = (int) (centerX - (centerX - left) * config.getVerticalMultiple());
-//
-//        if ((direction & 2) == 2)
-//            centerY = (int) (centerY - (centerY - top) * config.getHorizontalMultiple());
-//
-//        if ((direction & 4) == 4)
-//            centerX = (int) (centerX + (rightParent - centerX) * config.getVerticalMultiple());
-//
-//        if ((direction & 8) == 8)
-//            centerY = (int) (centerY + (bottomParent - centerY) * config.getHorizontalMultiple());
-//
-//
-//        View cue = getChildAt(1);
-//        if (config.isVisible) {
-//            cue.layout((int) (centerX - config.radius), (int) (centerY - config.radius), (int) (centerX + config.radius), (int) (centerY + config.radius));
-//        } else {
-//            removeView(cue);
-//        }
     }
 
     private float getOffset(int size) {
@@ -188,20 +144,27 @@ public class NumberLayout extends FrameLayout {
         int areaT = getPaddingTop();
         int areaB = height - getPaddingBottom();
 
+        int widthR = view.getMeasuredWidth();
+        int heightR = view.getMeasuredHeight();
         int w = config.width;//子view的宽
-        int h = view.getMeasuredHeight();//子view的高
-        BigDecUtil util = new BigDecUtil();
-        float mul = 1f;
-//        if (w > width - config.getOffsetX()) {
-//            mul = (float) util.getDivideValue(width - config.getOffsetX(), w);
-//        }
-        if (h > height - config.getOffsetY()) {
-            int m = (int) util.getDivideValue(height - config.getOffsetY(), h);
-            if (m < mul)
-                mul = m;
+        int h = config.height;//子view的高
+        if (w > width)
+            w = width;
+        if (h > height)
+            h = height;
+
+        float mul = 0f;
+        if (widthR > w)
+            mul = config.util.getDivideValue(w, widthR).floatValue();
+        if (heightR > h) {
+            float m = config.util.getDivideValue(h, heightR).floatValue();
+            if (mul < m) {
+                h = config.util.getMultiplyValue(heightR, mul).intValue();
+            } else {
+                w = config.util.getMultiplyValue(widthR, m).intValue();
+            }
         }
-//        w = (int) util.getMultiplyValue(w, mul, Integer.class);
-        h = (int) util.getMultiplyValue(h, mul, Integer.class);
+
         centerX = width / 2;
         centerY = height / 2;
         if (config.singleHorizontalSide) {
@@ -213,8 +176,6 @@ public class NumberLayout extends FrameLayout {
                 if (centerX + w / 2 + config.getOffsetX() > areaR)
                     centerX = areaR - w / 2 - config.getOffsetX();
             }
-        } else {
-
         }
 
         if (config.singleVerticalSide) {
@@ -228,30 +189,37 @@ public class NumberLayout extends FrameLayout {
                     centerY = areaB - h / 2 - config.getOffsetY();
                 }
             }
-        } else {
-
         }
         left = centerX - w / 2;
         right = centerX + w / 2;
         top = centerY - h / 2;
         bottom = centerY + h / 2;
-        view.layout(left, top, left + config.width, bottom);
+        view.layout(left, top, right, bottom);
 
-        left = left + lp.leftMargin + getPaddingLeft();
-        right = right - lp.rightMargin - getPaddingRight();
-        top = top + lp.topMargin + getPaddingTop();
-        bottom = bottom + lp.bottomMargin + getPaddingBottom();
-//        view.layout(left, top, left + config.width, bottom);
-        if (left < areaL) {
-            left = areaL;
+        centerX = (left + right) / 2;
+        centerY = (top + bottom) / 2;
+        int direction = config.direction;
+        if (config.direction == 15)
+            direction = 0;
+        if ((direction & 1) == 1)
+            centerX = (int) (centerX - (centerX - left) * config.getVerticalMultiple());
+
+        if ((direction & 2) == 2)
+            centerY = (int) (centerY - (centerY - top) * config.getHorizontalMultiple());
+
+        if ((direction & 4) == 4)
+            centerX = (int) (centerX + (right - centerX) * config.getVerticalMultiple());
+
+        if ((direction & 8) == 8)
+            centerY = (int) (centerY + (bottom - centerY) * config.getHorizontalMultiple());
+
+
+        View cue = getChildAt(1);
+        if (config.isVisible) {
+            cue.layout((int) (centerX - config.radius), (int) (centerY - config.radius), (int) (centerX + config.radius), (int) (centerY + config.radius));
+        } else {
+            removeView(cue);
         }
-        if (right > areaR)
-            right = areaR;
-        if (top < areaT)
-            top = areaT;
-        if (bottom > areaB)
-            bottom = areaB;
-//        view.layout(left, top, left + config.width, bottom);
 
     }
 
