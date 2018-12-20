@@ -26,11 +26,13 @@ public class NumberConfig {
     public float clipVertical;
     public float clipHorizontal;
     public boolean isVisible;
+    public int width;
+    public int height;
 
     private RectF rectF;//字体居中所需的辅助长方形
     private Paint textPaint;//提示view中的字体画笔
     private Paint backPaint;//提示view中的背景画笔
-    BigDecUtil util = new BigDecUtil();
+    public BigDecUtil util = new BigDecUtil();
 
     public void init(Context context, AttributeSet attrs) {
         mContext = context;

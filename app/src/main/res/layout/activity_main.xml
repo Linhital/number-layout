@@ -7,64 +7,75 @@
     tools:context=".MainActivity">
 
     <com.view.NumberLayout
-        android:id="@+id/a"
+        android:id="@+id/numberLayout7"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
-        android:padding="10dp"
-        app:circle_line="true"
         app:cue_radius="20dp"
-        app:cue_textColor="@color/colorBlue"
         app:direction="right_top"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@mipmap/ic_launcher" />
-    </com.view.NumberLayout>
-
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="@+id/a"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/a"
-        app:layout_constraintTop_toTopOf="@+id/a" />
-
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="@+id/a"
-        app:layout_constraintEnd_toStartOf="@+id/imageView3"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/a" />
-
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="@+id/a"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/a" />
+        app:layout_constraintStart_toEndOf="@+id/numberLayout9"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:background="@color/colorPrimary" />
+
+    </com.view.NumberLayout>
+
+    <RelativeLayout
+        android:id="@+id/numberLayout9"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/numberLayout7"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/numberLayout6"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="4200dp"
+            android:layout_height="200dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/numberLayout6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/numberLayout9"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/numberLayout8"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="4200dp"
+            android:layout_height="200dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/numberLayout8"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/numberLayout6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="4200dp"
+            android:layout_height="200dp" />
+    </RelativeLayout>
 
 
 </android.support.constraint.ConstraintLayout>

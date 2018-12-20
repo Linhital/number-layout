@@ -25,6 +25,11 @@ public class BigDecUtil {
         return getValue("add", mulA, mulB, clazz);
     }
 
+    public Number getDivideValue(Number mulA, Number mulB) {
+        transToValue(mulA, mulB);
+        return decA.divide(decB, 5, BigDecimal.ROUND_CEILING).floatValue();
+    }
+
     private void transToValue(Number a, Number b) {
         decA = new BigDecimal(toString(a));
         decB = new BigDecimal(toString(b));
