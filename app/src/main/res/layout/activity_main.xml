@@ -1,81 +1,274 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@color/colorPrimary">
 
-    <com.view.NumberLayout
-        android:id="@+id/numberLayout7"
-        android:layout_width="0dp"
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        app:cue_radius="20dp"
-        app:direction="right_top"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/numberLayout9"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingBottom="@dimen/margin_20"
+        app:layout_constraintEnd_toEndOf="@+id/complete"
+        app:layout_constraintStart_toEndOf="@+id/complete">
 
-        <ImageView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:background="@color/colorPrimary" />
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </com.view.NumberLayout>
+            <ImageView
+                android:id="@+id/scan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/scan"
+                android:src="@drawable/icon_scan"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout
-        android:id="@+id/numberLayout9"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/numberLayout7"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/numberLayout6"
-        app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:id="@+id/set"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/set"
+                android:src="@drawable/icon_set"
+                app:layout_constraintBottom_toBottomOf="@+id/scan"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/scan" />
 
-        <ImageView
-            android:layout_width="4200dp"
-            android:layout_height="200dp" />
-    </RelativeLayout>
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/user_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp"
+                android:paddingTop="@dimen/margin_8"
+                android:paddingBottom="@dimen/margin_8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scan"
+                app:layout_constraintVertical_bias="0.39">
 
-    <RelativeLayout
-        android:id="@+id/numberLayout6"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/numberLayout9"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/numberLayout8"
-        app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:id="@+id/sculpture"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/tou"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:layout_width="4200dp"
-            android:layout_height="200dp" />
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="24dp"
+                    android:layout_toEndOf="@+id/sculpture"
+                    android:contentDescription="@string/username"
+                    android:text="@string/test"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/sculpture"
+                    app:layout_constraintStart_toEndOf="@+id/sculpture"
+                    app:layout_constraintTop_toTopOf="@+id/sculpture" />
 
-    <RelativeLayout
-        android:id="@+id/numberLayout8"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/numberLayout6"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/none"
+                    android:src="@drawable/icon_go"
+                    app:layout_constraintBottom_toBottomOf="@+id/user_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/user_name" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
 
-        <ImageView
-            android:layout_width="4200dp"
-            android:layout_height="200dp" />
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/repair"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorBlue"
+            android:drawableStart="@drawable/icon_repair"
+            android:paddingStart="@dimen/margin_20"
+            android:paddingTop="@dimen/margin_10"
+            android:paddingEnd="@dimen/margin_20"
+            android:paddingBottom="@dimen/margin_10"
+            android:text="@string/repair_me"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+        <TextView
+            android:id="@+id/accepting"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:padding="@dimen/margin_20"
+            android:text="@string/accepting"
+            app:layout_constraintEnd_toStartOf="@+id/complete"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/evaluate"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/complete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp"
+            android:background="@color/colorBlue"
+            android:gravity="center"
+            android:padding="@dimen/margin_20"
+            android:text="@string/complete"
+            app:layout_constraintEnd_toStartOf="@+id/evaluate"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/accepting"
+            app:layout_constraintTop_toTopOf="@+id/evaluate" />
+
+        <TextView
+            android:id="@+id/evaluate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp"
+            android:background="@color/colorBlue"
+            android:gravity="center"
+            android:padding="@dimen/margin_20"
+            android:text="@string/evaluate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/visit"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/complete"
+            app:layout_constraintTop_toBottomOf="@+id/accept" />
+
+        <TextView
+            android:id="@+id/visit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBlue"
+            android:gravity="center"
+            android:padding="@dimen/margin_20"
+            android:text="@string/visit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/evaluate"
+            app:layout_constraintTop_toTopOf="@+id/evaluate" />
+
+        <com.view.NumberLayout
+            android:id="@+id/accept"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp"
+            android:background="@color/colorBlue"
+            android:padding="@dimen/margin_20"
+            app:cue_backgrounColor="@color/colorAccent"
+            app:cue_radius="@dimen/margin_10"
+            app:cue_textColor="@color/colorBlue"
+            app:direction="right_top"
+            app:layout_constraintEnd_toStartOf="@+id/finish"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/repair"
+            app:scale_center="1.5">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="TODO"
+                android:src="@drawable/accept" />
+        </com.view.NumberLayout>
+
+        <com.view.NumberLayout
+            android:id="@+id/finish"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp"
+            android:background="@color/colorBlue"
+            app:cue_backgrounColor="@color/colorAccent"
+            app:cue_radius="@dimen/margin_15"
+            app:cue_textColor="@color/colorBlue"
+            app:direction="right_top"
+            app:layout_constraintBottom_toBottomOf="@+id/accept"
+            app:layout_constraintEnd_toStartOf="@+id/assess"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/accept"
+            app:layout_constraintTop_toTopOf="@+id/accept">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="TODO"
+                android:src="@drawable/tou" />
+        </com.view.NumberLayout>
+
+        <com.view.NumberLayout
+            android:id="@+id/assess"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp"
+            android:background="@color/colorBlue"
+            app:cue_backgrounColor="@color/colorAccent"
+            app:cue_radius="@dimen/margin_15"
+            app:cue_textColor="@color/colorBlue"
+            app:direction="right_top"
+            app:layout_constraintBottom_toBottomOf="@+id/accept"
+            app:layout_constraintEnd_toStartOf="@+id/back"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/finish"
+            app:layout_constraintTop_toTopOf="@+id/accept"
+            app:text="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/tou" />
+        </com.view.NumberLayout>
+
+        <com.view.NumberLayout
+            android:id="@+id/back"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBlue"
+            app:cue_backgrounColor="@color/colorAccent"
+            app:cue_radius="@dimen/margin_15"
+            app:cue_textColor="@color/colorBlue"
+            app:direction="right_top"
+            app:layout_constraintBottom_toTopOf="@+id/accepting"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/assess"
+            app:layout_constraintTop_toTopOf="@+id/accept">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/tou" />
+        </com.view.NumberLayout>
+
+    </android.support.constraint.ConstraintLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</ScrollView>

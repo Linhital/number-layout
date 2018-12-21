@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Number</string>
+    <string name="scan">hello</string>
+    <string name="set">set</string>
+    <string name="username">username</string>
+    <string name="test">test</string>
+    <string name="none" />
+    <string name="repair_me">repair_me</string>
+    <string name="accepting">accepting</string>
+    <string name="complete">complete</string>
+    <string name="evaluate">evaluate</string>
+    <string name="visit">visit</string>
 </resources>

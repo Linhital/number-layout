@@ -44,10 +44,11 @@ public class NumberLayout extends FrameLayout {
         measureChildWithMargins(view, widthMeasureSpec, 0, heightMeasureSpec, 0);
         int childWidth = view.getMeasuredWidth();
         int childHeight = view.getMeasuredHeight();
-        Log.i("life1", childWidth + ":" + childHeight);
+        Log.i("life1", this + ":" + childWidth + ":" + childHeight);
         LayoutParams lp = (LayoutParams) view.getLayoutParams();
         int offsetX = 0;
         switch (modeW) {
+            case MeasureSpec.UNSPECIFIED:
             case MeasureSpec.AT_MOST:
                 // 当小红点超出子View的宽高时，计算超出的偏移量
                 offsetX = (int) getOffset(childWidth);
@@ -88,6 +89,7 @@ public class NumberLayout extends FrameLayout {
         config.width = childWidth;
         int offsetY = 0;
         switch (modeH) {
+            case MeasureSpec.UNSPECIFIED:
             case MeasureSpec.AT_MOST:
                 offsetY = (int) (config.radius - (1 - config.getHorizontalMultiple()) * childHeight / 2);
                 if (offsetY < 0)
@@ -135,6 +137,7 @@ public class NumberLayout extends FrameLayout {
         }
 
         config.height = childHeight;
+        Log.i("life2", this + ":" + width + ":" + height);
         setMeasuredDimension(width, height);
 
     }
