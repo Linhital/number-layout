@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -44,7 +43,6 @@ public class NumberLayout extends FrameLayout {
         measureChildWithMargins(view, widthMeasureSpec, 0, heightMeasureSpec, 0);
         int childWidth = view.getMeasuredWidth();
         int childHeight = view.getMeasuredHeight();
-        Log.i("life1", this + ":" + childWidth + ":" + childHeight);
         LayoutParams lp = (LayoutParams) view.getLayoutParams();
         int offsetX = 0;
         switch (modeW) {
@@ -137,7 +135,6 @@ public class NumberLayout extends FrameLayout {
         }
 
         config.height = childHeight;
-        Log.i("life2", this + ":" + width + ":" + height);
         setMeasuredDimension(width, height);
 
     }
