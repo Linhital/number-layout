@@ -6,16 +6,16 @@
     android:layout_height="match_parent">
 
     <com.view.NumberLayout
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="300dp"
         android:background="@color/colorBlue"
-        app:cue_radius="30dp"
+        app:cue_radius="40dp"
         app:direction="left_top"
         tools:ignore="MissingConstraints">
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
 
             android:background="@color/colorAccent" />
     </com.view.NumberLayout>

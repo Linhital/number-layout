@@ -4,11 +4,11 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.view.config.NumberConfig;
-import com.view.utils.BigDecUtil;
 
 public class NumberLayout extends FrameLayout {
     private NumberConfig config = new NumberConfig();
@@ -44,6 +44,7 @@ public class NumberLayout extends FrameLayout {
         measureChildWithMargins(view, widthMeasureSpec, 0, heightMeasureSpec, 0);
         int childWidth = view.getMeasuredWidth();
         int childHeight = view.getMeasuredHeight();
+        Log.i("life1", childWidth + ":" + childHeight);
         LayoutParams lp = (LayoutParams) view.getLayoutParams();
         int offsetX = 0;
         switch (modeW) {
@@ -78,6 +79,9 @@ public class NumberLayout extends FrameLayout {
                     offsetX = 2 * offsetX;
                 }
                 config.setOffsetX(offsetX);
+
+                childHeight = (int) ((float) childWidth / view.getMeasuredWidth() * view.getMeasuredHeight());
+
                 break;
         }
 
@@ -112,8 +116,24 @@ public class NumberLayout extends FrameLayout {
                     offsetY = 2 * offsetY;
                 }
                 config.setOffsetY(offsetY);
+
+                if (modeW == MeasureSpec.AT_MOST) {
+                    childWidth = (int) ((float) childHeight / view.getMeasuredHeight() * view.getMeasuredWidth());
+                    // 当小红点超出子View的宽高时，计算超出的偏移量
+                    offsetX = (int) getOffset(childWidth);
+                    if (offsetX < 0)
+                        offsetX = 0;
+
+                    //当提示的小点
+                    if (!config.singleHorizontalSide) {
+                        offsetX = 2 * offsetX;
+                    }
+                    config.setOffsetX(offsetX);
+                    width = childWidth + lp.leftMargin + lp.rightMargin + getPaddingLeft() + getPaddingRight() + offsetX;
+                }
                 break;
         }
+
         config.height = childHeight;
         setMeasuredDimension(width, height);
 
@@ -153,9 +173,10 @@ public class NumberLayout extends FrameLayout {
         if (h > height)
             h = height;
 
-        float mul = 0f;
+        float mul = 1f;
         if (widthR > w)
             mul = config.util.getDivideValue(w, widthR).floatValue();
+
         if (heightR > h) {
             float m = config.util.getDivideValue(h, heightR).floatValue();
             if (mul < m) {
